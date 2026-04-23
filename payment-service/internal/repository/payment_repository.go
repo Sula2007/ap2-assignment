@@ -22,7 +22,7 @@ func NewPaymentRepository(db *sql.DB) PaymentRepository {
 }
 
 func (r *paymentRepository) Create(payment *domain.Payment) error {
-	query := `INSERT INTO payments (id, order_id, transaction_id, amount, status, created_at) 
+	query := `INSERT INTO payments (id, order_id, transaction_id, amount, status, created_at)
 	          VALUES ($1, $2, $3, $4, $5, $6)`
 	_, err := r.db.Exec(query, payment.ID, payment.OrderID, payment.TransactionID,
 		payment.Amount, payment.Status, payment.CreatedAt)
@@ -30,7 +30,7 @@ func (r *paymentRepository) Create(payment *domain.Payment) error {
 }
 
 func (r *paymentRepository) FindByOrderID(orderID string) (*domain.Payment, error) {
-	query := `SELECT id, order_id, transaction_id, amount, status, created_at 
+	query := `SELECT id, order_id, transaction_id, amount, status, created_at
 	          FROM payments WHERE order_id = $1`
 
 	var payment domain.Payment
